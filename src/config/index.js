@@ -5,7 +5,7 @@ const startEnv = () => {
 	const envFound = dotenv.config()
 	if (!envFound) {
 		// This error should crash whole process
-		throw new Error("⚠️  Couldn't find .env file  ⚠️")
+		throw new Error("⚠️    Couldn't find .env file")
 	}
 }
 
@@ -23,10 +23,19 @@ export default {
 		limit: 15,
 		whitelist: (process.env.DDOS_WHITELIST || '').split(),
 	},
-	// Mongo
+	// MongoDB
 	mongodb: {
 		// URL
-		uri: process.env.MONGODB_URI,
+		uri: [
+			'mongodb://',
+			process.env.MONGODB_HOST || 'localhost',
+			':',
+			process.env.MONGODB_PORT || '27017',
+			'/',
+			process.env.MONGODB_NAME || 'project72',
+			'_',
+			process.env.NODE_ENV,
+		].join(''),
 	},
 	// JWT
 	jwt: {

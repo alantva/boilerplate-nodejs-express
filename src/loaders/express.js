@@ -6,7 +6,7 @@ import Ddos from 'ddos'
 import config from '../config'
 import routes from '../api'
 
-export default ({ app } = { app: express.Application }) => {
+export default ({ app }) => {
 	// Health Check
 	app.get('/status', (req, res) => {
 		res.status(200).end()
@@ -56,4 +56,6 @@ export default ({ app } = { app: express.Application }) => {
 			},
 		})
 	})
+
+	__log.info('✌️    Express loaded')
 }

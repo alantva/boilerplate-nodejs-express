@@ -1,21 +1,43 @@
-version: '3.3'
+version: '3.4'
 
 networks:
   backend:
+    driver: bridge
 
 services:
   app:
+    container_name: project72_app
     build:
       context: .
       dockerfile: Dockerfile
       args:
         - PORT=${PORT}
-    command: yarn ${NODE_ENV}
     restart: on-failure
+    command: yarn ${NODE_ENV}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "0.0.0.0:${MONGODB_PORT}"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
     volumes:
       - ./:/usr/src
       - /usr/src/node_modules
     ports:
       - ${PORT}:${PORT}
+    networks:
+      - backend
+    links:
+      - db
+
+  db:
+    container_name: project72_db
+    image: mongo
+    environment:
+      - MONGODB_PORT=${MONGODB_PORT}
+    volumes:
+      - ./data:/data/db
+    ports:
+      - 27017:${MONGODB_PORT}
     networks:
       - backend

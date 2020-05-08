@@ -54,6 +54,9 @@ node_modules/
 # Build generate
 dist
 
+# MongoDB
+data
+
 # IDE / Editor
 .idea
 .editorconfig

@@ -2,6 +2,7 @@ import express from 'express'
 
 import config from './config'
 
+// Import the log and assign it to a global variable
 import Logger from './loaders/logger'
 global.__log = Logger
 
@@ -16,10 +17,7 @@ async function startServer() {
 			process.exit(1)
 			return
 		}
-		__log.info(`
-	#########################################
-	🛡️    Server listening on port: ${config.app.port}    🛡️
-	#########################################`)
+		__log.info(`🛡️    Server listening on port: ${config.app.port}`)
 	})
 }
 

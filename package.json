@@ -9,7 +9,7 @@
     "build": "webpack --mode=production -p --config webpack.config.js",
     "start": "node dist/bundle.js",
     "development": "cross-env NODE_ENV=development nodemon -L",
-		"production": "yarn build && yarn start"
+    "production": "yarn build && yarn start"
   },
   "dependencies": {
     "@babel/polyfill": "^7.8.7",
@@ -17,6 +17,7 @@
     "cors": "^2.8.5",
     "ddos": "^0.2.1",
     "express": "^4.17.1",
+    "mongoose": "^5.9.12",
     "winston": "^3.2.1"
   },
   "devDependencies": {

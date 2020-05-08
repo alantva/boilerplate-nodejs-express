@@ -11,6 +11,7 @@ module.exports = {
 	'globals': {
 		'Atomics': 'readonly',
 		'SharedArrayBuffer': 'readonly',
+		'__db': false,
 		'__log': false
 	},
 	'parserOptions': {
