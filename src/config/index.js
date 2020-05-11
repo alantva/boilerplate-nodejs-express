@@ -28,7 +28,7 @@ export default {
 		// URL
 		uri: [
 			'mongodb://',
-			process.env.MONGODB_HOST || 'localhost',
+			process.env.MONGODB_HOST || 'project72_db',
 			':',
 			process.env.MONGODB_PORT || '27017',
 			'/',

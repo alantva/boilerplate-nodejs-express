@@ -1,37 +1,35 @@
-import mongoose, { Schema } from 'mongoose'
+import mongoose from 'mongoose'
 
 import config from '../config'
 
-export default async () => {
-	const conn = await mongoose.connect(config.mongodb.uri, {
+const dbCreateConnection = async () => {
+	global.__db = await mongoose.connect(config.mongodb.uri, {
 		useNewUrlParser: true,
 		useCreateIndex: true,
 		useUnifiedTopology: true,
 	})
-
 	// When successfully connected
-	conn.connection.on('connected', () => {
-		__log.info(`🛡️    Db connection open to ${config.mongodb.uri}`)
+	global.__db.connection.on('connected', () => {
+		__log.info(`Db connection open to ${config.mongodb.uri}`)
 	})
-
 	// If the connection throws an error
-	conn.connection.on('error', (err) => {
+	global.__db.connection.on('error', (err) => {
 		__log.error(`⚠️    Db connection error: ${err}`)
 	})
-
 	// When the connection is disconnected
-	conn.connection.on('disconnected', () => {
-		__log.info('🛡️    Mongoose default connection disconnected')
+	global.__db.connection.on('disconnected', () => {
+		__log.info('Mongoose default connection disconnected')
 	})
+	__log.info(`Db connected on ${config.mongodb.uri}`)
+}
 
-	// If the Node process ends, close the Mongoose connection
-	process.on('SIGINT', () => {
-		conn.connection.close(() => {
-			__log.info('🛡️    Db connection disconnected through app termination')
-			process.exit(0)
-		})
+const dbCloseConnection = () => {
+	global.__db.connection.close(() => {
+		__log.info('Db connection closed')
 	})
+}
 
-	global.__db = conn
-	__log.info(`✌️    Db loaded on ${config.mongodb.uri}`)
+export default {
+	dbCreateConnection,
+	dbCloseConnection,
 }

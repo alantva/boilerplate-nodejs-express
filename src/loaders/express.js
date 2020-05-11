@@ -56,6 +56,4 @@ export default ({ app }) => {
 			},
 		})
 	})
-
-	__log.info('✌️    Express loaded')
 }

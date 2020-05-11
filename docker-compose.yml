@@ -10,8 +10,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        - PORT=${PORT}
     restart: on-failure
     command: yarn ${NODE_ENV}
     healthcheck:
@@ -29,6 +27,8 @@ services:
       - backend
     links:
       - db
+    expose:
+      - ${PORT}
 
   db:
     container_name: project72_db

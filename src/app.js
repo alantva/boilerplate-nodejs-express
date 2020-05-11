@@ -1,10 +1,5 @@
 import express from 'express'
-
 import config from './config'
-
-// Import the log and assign it to a global variable
-import Logger from './loaders/logger'
-global.__log = Logger
 
 async function startServer() {
 	const app = express()
@@ -18,6 +13,12 @@ async function startServer() {
 			return
 		}
 		__log.info(`🛡️    Server listening on port: ${config.app.port}`)
+	})
+
+	// If the Node process ends, close the Db connection
+	process.on('SIGINT', () => {
+		__db.dbCloseConnection()
+		__log.info('🛡️    Db connection disconnected through app termination')
 	})
 }
 
