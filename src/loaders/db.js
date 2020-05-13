@@ -14,7 +14,7 @@ const dbCreateConnection = async () => {
 	})
 	// If the connection throws an error
 	global.__db.connection.on('error', (err) => {
-		__log.error(`⚠️    Db connection error: ${err}`)
+		__log.error(`🔥    Db connection error: ${err}`)
 	})
 	// When the connection is disconnected
 	global.__db.connection.on('disconnected', () => {

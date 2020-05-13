@@ -41,17 +41,10 @@ export default ({ app }) => {
 
 	// Error handlers
 	app.use((err, req, res, next) => {
-		console.log(err)
-		// Handle 401 thrown by express-jwt library
-		if (err.name === 'UnauthorizedError') {
-			return res.status(err.status).send({ message: err.message }).end()
-		}
-		return next(err)
-	})
-	app.use((err, req, res) => {
 		res.status(err.status || 500)
-		res.json({
-			errors: {
+		__log.error(`🔥    Express [${err.status}] ${err}`)
+		return res.send({
+			error: {
 				message: err.message,
 			},
 		})

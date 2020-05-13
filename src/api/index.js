@@ -1,15 +1,11 @@
 import { Router } from 'express'
+import auth from './routes/auth'
 
 export default () => {
 	const app = Router()
-	app.get('/', (req, res) => {
-		res.status(200).send(req.query)
-	})
-	app.post('/', (req, res) => {
-		res.status(200).send(req.body)
-	})
-	app.put('/', (req, res) => {
-		res.status(200).send(req.body)
-	})
+
+	// User routes
+	auth(app)
+
 	return app
 }

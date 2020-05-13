@@ -11,7 +11,7 @@ export default async ({ expressApp }) => {
 		await expressLoader({ app: expressApp })
 		__log.info('🛡️    Express loaded')
 	} catch (err) {
-		__log.error(`⚠️    Loaders failed: ${err}`)
+		__log.error(`🔥    Loaders failed: ${err}`)
 		process.exit(0)
 	}
 }
